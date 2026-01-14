@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW RETAIL_ANALYTICS.ANALYTICS.VW_REVENUE_BY_CATEGORY AS
+SELECT
+  p.product_category_name,
+  SUM(f.item_total_value) AS total_revenue
+FROM RETAIL_ANALYTICS.ANALYTICS.FACT_ORDER_ITEMS f
+JOIN RETAIL_ANALYTICS.ANALYTICS.DIM_PRODUCT p
+  ON f.product_id = p.product_id
+GROUP BY p.product_category_name
+ORDER BY total_revenue DESC;
