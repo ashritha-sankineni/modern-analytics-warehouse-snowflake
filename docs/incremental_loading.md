@@ -52,7 +52,7 @@ Clear operational visibility
 
 Selecting the correct watermark column is critical.
 
-#### Option 1 — INGESTED_AT (Operational Time)
+### Option 1 — INGESTED_AT (Operational Time)
 
 Definition: Timestamp when a record is ingested into the warehouse (RAW or STAGING).
 
@@ -96,13 +96,13 @@ Late-arriving records may be missed if used alone
 
 Less reliable for ingestion correctness
 
-Typical use
+##### Typical use
 
 Business-time analytics
 
 Historical trend analysis
 
-### What This Project Implements
+## What This Project Implements
 
 This project currently uses business event time as the incremental watermark:
 
@@ -120,7 +120,7 @@ Remain simple and reproducible
 
 Highlight design decisions rather than hide them
 
-Production note: Real-world systems typically track both business time and ingestion time:
+##### Production note: Real-world systems typically track both business time and ingestion time:
 
 ORDER_PURCHASE_TS → analytics and reporting
 
@@ -138,7 +138,7 @@ Duplicate inserts are prevented
 
 Re-runs are idempotent
 
-##### This allows:
+#### This allows:
 
 Safe retries after failures
 
@@ -146,7 +146,7 @@ Late corrections from upstream sources
 
 Consistent downstream analytics
 
-##### Implementation:
+#### Implementation:
 
 sql/analytics/fact_orders_incremental.sql
 
@@ -160,7 +160,7 @@ Based on the maximum processed timestamp
 
 Never moved backward
 
-This ensures:
+#### This ensures:
 
 No data is skipped
 
@@ -172,7 +172,7 @@ Handling Late-Arriving Data
 
 Late-arriving data is a common production challenge.
 
-##### In this design:
+#### In this design:
 
 Late records with older ORDER_PURCHASE_TS may not be picked up automatically
 
@@ -188,7 +188,7 @@ Switching to ingestion-time watermarks
 
 These enhancements are intentionally left as future improvements to keep the core design clear.
 
-### Failure Modes & Impact
+## Failure Modes & Impact
 
 Potential failure scenarios include:
 
@@ -198,7 +198,7 @@ Late-arriving orders	Business metrics may lag
 Partial load failure	MERGE allows safe rerun
 Duplicate source records	Prevented by MERGE logic
 
-These failure modes are detected through:
+#### These failure modes are detected through:
 
 Data quality tests
 
