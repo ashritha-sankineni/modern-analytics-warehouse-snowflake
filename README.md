@@ -80,22 +80,29 @@ ANALYTICS
 - Data quality & observability patterns
 
 ---
-
 ## How to Run
 
 1. Load raw data  
-   → `sql/raw/load_raw.sql`
+→ `sql/raw/load_raw.sql`
 
 2. Build staging tables  
-   → `sql/staging/staging_tables.sql`
+→ `sql/staging/staging_tables.sql`
 
-3. Build analytics layer  
-   → `sql/analytics/dimensions.sql`  
-   → `sql/analytics/facts.sql`  
-   → `sql/analytics/views.sql`
+3. Build analytics layer (initial build)  
+→ `sql/analytics/dimensions.sql`  
+→ `sql/analytics/facts.sql`  
+→ `sql/analytics/views.sql`
 
-4. Run data quality tests  
-   → `sql/tests/test_runner.sql`
+4. Incremental load (daily pattern)  
+→ `sql/ops/watermarks.sql` (one-time setup)  
+→ `sql/analytics/fact_orders_incremental.sql`
+
+5. Run data quality tests  
+→ `sql/tests/test_runner.sql`
+
+6. Run freshness / SLA checks  
+→ `sql/ops/freshness_checks.sql`
+
 
 ---
 
