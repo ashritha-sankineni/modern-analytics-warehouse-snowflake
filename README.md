@@ -32,6 +32,7 @@ ANALYTICS
 ├── Metrics & Views
 └── Data Quality Tests
 
+![Modern Analytics Warehouse Architecture](docs/architecture.png)
 
 ---
 
